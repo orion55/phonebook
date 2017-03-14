@@ -5,12 +5,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackBase = require('./webpack.config');
 
 module.exports = Object.assign(webpackBase, {
-    output: Object.assign(webpackBase.output, {
-        filename: './js/bundle-[hash].js',
-    }),
+    output: Object.assign(webpackBase.output, {filename: 'js/bundle-[hash].js'}),
     plugins: webpackBase.plugins.concat([
         new ExtractTextPlugin('./css/styles-[hash].css'),
-        new CleanWebpackPlugin(['./build/js', './build/css', './build/fonts'], {
+        new CleanWebpackPlugin(['./docs/js', './docs/css', './docs/fonts'], {
             verbose: true,
             dry: false,
             root: path.resolve(__dirname, '../'),
@@ -23,7 +21,15 @@ module.exports = Object.assign(webpackBase, {
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
+                warnings: false,
+                sequences: true,
+                dead_code: true,
+                conditionals: true,
+                booleans: true,
+                unused: true,
+                if_return: true,
+                join_vars: true,
+                drop_console: true
             }
         }),
     ])

@@ -6,8 +6,8 @@ module.exports = {
     },
     output: {
         path: `${__dirname}/../docs`,
-        filename: './js/bundle.js',
-        publicPath: '/',
+        filename: 'js/bundle.js',
+        publicPath: ''
     },
     devServer: {
         port: 8080,
@@ -66,5 +66,4 @@ module.exports = {
             filename: './index.html',
         }),
     ],
-}
-;
+};
