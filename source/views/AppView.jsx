@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
-import history from '../history';
+import React, {Component} from 'react';
+
 import Container from '../components/Container/Container';
 import MainMenu from '../containers/MainMenu/MainMenu';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+
+injectTapEventPlugin();
 
 const AppView = (props) => {
     return (
-        <Container>
-            <MainMenu/>
-            <p>
-                <button type='button'
-                        className='btn btn-default'
-                        onClick={() => {
-                            history.push('/third');
-                        }}>
-                    <span className='glyphicon glyphicon-link' />
-                    &nbsp;
-                    Open third page programmatically
-                </button>
-            </p>
-
-            <hr />
-
-            {props.children}
-        </Container>
+        <MuiThemeProvider>
+            <Container>
+                <MainMenu/>
+                {props.children}
+            </Container>
+        </MuiThemeProvider>
     );
 };
 

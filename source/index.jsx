@@ -4,7 +4,6 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, IndexRoute} from 'react-router';
 
-// import './styles/general.less';
 import './styles/main.scss';
 
 import history from './history';
@@ -14,6 +13,8 @@ import AppView from './views/AppView';
 import MainView from './views/MainView';
 import SecondView from './views/SecondView';
 import ThirdView from './views/ThirdView';
+
+
 
 render(
     <Provider store={store}>
