@@ -5,7 +5,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackBase = require('./webpack.config');
 
 module.exports = Object.assign(webpackBase, {
-    output: Object.assign(webpackBase.output, {filename: 'js/bundle-[hash].js'}),
+    output: Object.assign(webpackBase.output, {
+        filename: 'js/bundle-[hash].js',
+    }),
     plugins: webpackBase.plugins.concat([
         new ExtractTextPlugin('./css/styles-[hash].css'),
         new CleanWebpackPlugin(['./docs/js', './docs/css', './docs/fonts'], {
