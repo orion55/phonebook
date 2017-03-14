@@ -25,25 +25,14 @@ module.exports = {
                 loaders: ['babel-loader'],
                 exclude: /node_modules/,
             },
-/*
-            {
-                test: /\.(less|css)$/,
-                use: [
-                    'style-loader',
-                    {loader: 'css-loader', options: {importLoaders: 1}},
-                    'less-loader'
-                ]
-            },
-*/
             {
                 test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                use: [
+                    'style-loader',
+                    'css-loader?importLoaders=1',
+                    'postcss-loader',
+                    'sass-loader'
+                ]
             },
             {test: /\.(png|gif|jpg)(\?.*$|$)/, loader: 'url-loader?limit=100000&name=images/[hash].[ext]'},
             {test: /\.(json)(\?.*$|$)/, loader: 'json-loader'},
