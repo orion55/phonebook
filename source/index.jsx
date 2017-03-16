@@ -15,7 +15,6 @@ import SecondView from './views/SecondView';
 import ThirdView from './views/ThirdView';
 
 
-
 render(
     <Provider store={store}>
         <Router history={history}>
@@ -23,6 +22,7 @@ render(
                 <IndexRoute component={MainView}/>
                 <Route path='/second' component={SecondView}/>
                 <Route path='/third' component={ThirdView}/>
+                <Route path='*' component={MainView}/>
             </Route>
         </Router>
     </Provider>,
