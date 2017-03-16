@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
+import PhoneTable from '../components/phonetable'
 
 const MainView = () => {
     return (
-        <div>
-            <p>
-                Main View
-            </p>
+        <div className="mainView">
+            <PhoneTable/>
         </div>
     );
 };

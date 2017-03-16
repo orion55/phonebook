@@ -6,8 +6,8 @@ import {Router, Route, IndexRoute} from 'react-router';
 
 import './styles/main.scss';
 
-import history from './history';
-import store from './store';
+import history from './router/router';
+import store from './store/store';
 
 import AppView from './views/AppView';
 import MainView from './views/MainView';

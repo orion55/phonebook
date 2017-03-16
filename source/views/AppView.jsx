@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import PhoneIcon from 'material-ui/svg-icons/communication/phone';
-import history from '../history';
+import history from '../router/router';
 
 injectTapEventPlugin();
 

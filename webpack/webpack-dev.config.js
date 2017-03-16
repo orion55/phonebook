@@ -6,5 +6,10 @@ module.exports = Object.assign(webpackBase, {
     devtool: 'source-map',
     plugins: webpackBase.plugins.concat([
         new ExtractTextPlugin('./css/styles.css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': `"development"`
+            }
+        }),
     ])
 });

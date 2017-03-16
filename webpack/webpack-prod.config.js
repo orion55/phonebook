@@ -10,7 +10,7 @@ module.exports = Object.assign(webpackBase, {
     }),
     plugins: webpackBase.plugins.concat([
         new ExtractTextPlugin('./css/styles-[hash].css'),
-        new CleanWebpackPlugin(['./docs/js', './docs/css', './docs/fonts'], {
+        new CleanWebpackPlugin(['./docs/js', './docs/css', './docs/fonts', './docs'], {
             verbose: true,
             dry: false,
             root: path.resolve(__dirname, '../'),
