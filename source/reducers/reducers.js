@@ -4,18 +4,11 @@ import AppConstants from '../constants/AppConstants';
 
 export default combineReducers({
     items,
-    itemsHasErrored,
-    itemsIsLoading,
-    // statusApp,
+    statusApp,
     routing: routerReducer
 });
 
-const initialState = {
-    hasErrored: false,
-    isLoading: false
-};
-
-function statusApp(state = initialState, action) {
+function statusApp(state = {hasErrored: false, isLoading: false}, action) {
     switch (action.type) {
         case AppConstants.ITEMS_HAS_ERRORED:
             return Object.assign({}, state, {
@@ -25,26 +18,6 @@ function statusApp(state = initialState, action) {
             return Object.assign({}, state, {
                 isLoading: action.isLoading
             });
-
-        default:
-            return state;
-    }
-}
-
-function itemsHasErrored(state = false, action) {
-    switch (action.type) {
-        case AppConstants.ITEMS_HAS_ERRORED:
-            return action.hasErrored;
-
-        default:
-            return state;
-    }
-}
-
-function itemsIsLoading(state = false, action) {
-    switch (action.type) {
-        case AppConstants.ITEMS_IS_LOADING:
-            return action.isLoading;
 
         default:
             return state;

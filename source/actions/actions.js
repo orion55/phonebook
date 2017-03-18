@@ -1,4 +1,7 @@
 import AppConstants from '../constants/AppConstants';
+import axios from 'axios';
+
+const userUrl = 'https://randomuser.me/api/';
 
 export function itemsHasErrored(bool) {
     return {
@@ -37,6 +40,54 @@ export function itemsFetchData(url) {
             })
             .then((response) => response.json())
             .then((items) => dispatch(itemsFetchDataSuccess(items)))
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
+export function itemsFetchAll() {
+    return (dispatch) => {
+        const maxItems = 10;
+        let arrayQuery = [];
+
+        dispatch(itemsIsLoading(true));
+
+        for (let i = 0; i < maxItems; i++) {
+            arrayQuery.push(axios.get(userUrl));
+        }
+
+        axios.all(arrayQuery)
+            .then(axios.spread(function (...param) {
+                let items = [];
+
+                const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+                for (let i = 0; i < maxItems; i++) {
+                    let {
+                        name: {first: first, last: last},
+                        login: {sha1: sha1},
+                        phone,
+                        cell,
+                        email,
+                        picture:{large: pictureLarge, thumbnail: pictureThumb}
+                    } = param[i].data.results[0];
+
+                    let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
+                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email});
+                }
+
+                items.sort(function (a, b) {
+                    if (a.fullName > b.fullName) {
+                        return 1;
+                    }
+                    if (a.fullName < b.fullName) {
+                        return -1;
+                    }
+                    return 0;
+                });
+
+                dispatch(itemsIsLoading(false));
+                dispatch(itemsFetchDataSuccess(items));
+            }))
             .catch(() => dispatch(itemsHasErrored(true)));
     };
 }

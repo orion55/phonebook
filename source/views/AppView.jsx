@@ -28,7 +28,7 @@ const AppView = (props) => {
         <MuiThemeProvider>
             <div className="container">
                 <AppBar
-                    title={<div style={styles.title}>Телефонный справочник</div>}
+                    title={<div style={styles.title}>Phonebook</div>}
                     iconElementLeft={<IconButton><PhoneIcon /></IconButton>}
                     onTitleTouchTap={handleTouchTap}
                     onLeftIconButtonTouchTap={handleTouchTap}

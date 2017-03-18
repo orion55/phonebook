@@ -1,9 +1,18 @@
 .cellMenu {
-    float: right;
+  float: right;
 }
 
 .cellTable {
-    float: left;
-    margin-top: 15px;
-    padding-left: 45%;
+  float: left;
+  margin-top: 15px;
+  padding-left: 45%;
+}
+
+.leftText {
+  text-align: left;
+}
+
+.cellTableLast {
+  float: left;
+  line-height: 56px;
 }
