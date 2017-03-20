@@ -97,6 +97,8 @@ export function itemsFetchAllv2() {
     return (dispatch) => {
         const maxItems = 10;
 
+        dispatch(itemsIsLoading(true));
+
         axios.get(userUrlResult + maxItems)
             .then((response) => {
                 let items = [];
@@ -131,8 +133,6 @@ export function itemsFetchAllv2() {
                 dispatch(itemsFetchDataSuccess(items));
             })
             .catch(() => dispatch(itemsHasErrored(true)));
-        dispatch(itemsIsLoading(true));
-
     };
 }
 
@@ -140,5 +140,19 @@ export function itemDelete(hash) {
     return {
         type: AppConstants.ITEM_DELETE,
         hash
+    };
+}
+
+export function itemCurrentSet(currentItem) {
+    return {
+        type: AppConstants.ITEM_SET,
+        currentItem
+    };
+}
+
+export function itemSet(hash) {
+    return (dispatch, getState) => {
+        const {items} =getState();
+        dispatch(itemCurrentSet(items.filter(item => item.sha1 === hash)));
     };
 }

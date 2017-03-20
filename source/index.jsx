@@ -20,7 +20,7 @@ render(
         <Router history={history}>
             <Route path='/' component={AppView}>
                 <IndexRoute component={MainView}/>
-                <Route path='/second' component={SecondView}/>
+                <Route path='/user/:id' component={SecondView}/>
                 <Route path='/third' component={ThirdView}/>
                 <Route path='*' component={MainView}/>
             </Route>

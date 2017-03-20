@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UserInfo from '../components/userinfo';
 
-const SecondView = () => {
+const SecondView = (props) => {
     return (
         <div>
-            <span className='glyphicon glyphicon-heart-empty' />
-            &nbsp;
-            Second View
+            <UserInfo id={props.params.id}/>
         </div>
     );
 };

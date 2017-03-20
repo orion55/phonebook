@@ -5,7 +5,8 @@ import AppConstants from '../constants/AppConstants';
 export default combineReducers({
     items,
     statusApp,
-    routing: routerReducer
+    routing: routerReducer,
+    currentItem
 });
 
 function statusApp(state = {hasErrored: false, isLoading: false}, action) {
@@ -30,6 +31,15 @@ function items(state = [], action) {
             return action.items;
         case AppConstants.ITEM_DELETE:
             return state.filter(item => item.sha1 !== action.hash);
+
+        default:
+            return state;
+    }
+}
+function currentItem(state = {}, action) {
+    switch (action.type) {
+        case AppConstants.ITEM_SET:
+            return (action.currentItem === undefined || action.currentItem.length == 0) ? {} : action.currentItem[0];
 
         default:
             return state;
