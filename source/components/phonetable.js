@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import './phonetable.scss';
 import {connect} from 'react-redux';
-import {itemsFetchAll} from '../actions/actions';
+import {itemsFetchAllv2} from '../actions/actions';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import {red500} from 'material-ui/styles/colors';
@@ -22,6 +22,7 @@ import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Link from 'react-router/lib/Link';
 
 const styles = {
     textCenterUppercase: {
@@ -78,7 +79,7 @@ class PhoneTable extends Component {
     }
 
     componentDidMount() {
-        this.props.itemsFetchAll();
+        this.props.itemsFetchAllv2();
     }
 
     handleTouch() {
@@ -126,7 +127,9 @@ class PhoneTable extends Component {
                                 <TableRowColumn style={styles.textLeft}> <Avatar
                                     src={item.pictureThumb}/></TableRowColumn>
                                 <TableRowColumn
-                                    style={styles.widthFixed}>{item.fullName}</TableRowColumn>
+                                    style={styles.widthFixed}>
+                                    <Link to={"/user/" + item.sha1}>{item.fullName}</Link>
+                                </TableRowColumn>
                                 <TableRowColumn style={styles.widthFixed}>{item.phone}</TableRowColumn>
                                 <TableRowColumn style={styles.widthFixed}>{item.cell}</TableRowColumn>
                                 <TableRowColumn style={styles.widthFixedLast}>
@@ -152,7 +155,7 @@ class PhoneTable extends Component {
 }
 
 PhoneTable.propTypes = {
-    itemsFetchAll: PropTypes.func.isRequired,
+    itemsFetchAllv2: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -168,7 +171,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        itemsFetchAll: () => dispatch(itemsFetchAll())
+        itemsFetchAllv2: () => dispatch(itemsFetchAllv2())
     };
 };
 

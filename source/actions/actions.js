@@ -2,6 +2,7 @@ import AppConstants from '../constants/AppConstants';
 import axios from 'axios';
 
 const userUrl = 'https://randomuser.me/api/';
+const userUrlResult = 'https://randomuser.me/api/?results=';
 
 export function itemsHasErrored(bool) {
     return {
@@ -89,5 +90,48 @@ export function itemsFetchAll() {
                 dispatch(itemsFetchDataSuccess(items));
             }))
             .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
+export function itemsFetchAllv2() {
+    return (dispatch) => {
+        const maxItems = 10;
+
+        axios.get(userUrlResult + maxItems)
+            .then((response) => {
+                let items = [];
+
+                const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+                for (let i = 0; i < maxItems; i++) {
+                    let {
+                        name: {first: first, last: last},
+                        login: {sha1: sha1},
+                        phone,
+                        cell,
+                        email,
+                        picture:{large: pictureLarge, thumbnail: pictureThumb}
+                    } = response.data.results[i];
+
+                    let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
+                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email});
+                }
+
+                items.sort(function (a, b) {
+                    if (a.fullName > b.fullName) {
+                        return 1;
+                    }
+                    if (a.fullName < b.fullName) {
+                        return -1;
+                    }
+                    return 0;
+                });
+
+                dispatch(itemsIsLoading(false));
+                dispatch(itemsFetchDataSuccess(items));
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+        dispatch(itemsIsLoading(true));
+
     };
 }
