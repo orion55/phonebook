@@ -135,3 +135,10 @@ export function itemsFetchAllv2() {
 
     };
 }
+
+export function itemDelete(hash) {
+    return {
+        type: AppConstants.ITEM_DELETE,
+        hash
+    };
+}

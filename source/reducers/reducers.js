@@ -28,6 +28,8 @@ function items(state = [], action) {
     switch (action.type) {
         case AppConstants.ITEMS_FETCH_DATA_SUCCESS:
             return action.items;
+        case AppConstants.ITEM_DELETE:
+            return state.filter(item => item.sha1 !== action.hash);
 
         default:
             return state;

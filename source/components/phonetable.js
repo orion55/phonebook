@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import './phonetable.scss';
 import {connect} from 'react-redux';
-import {itemsFetchAllv2} from '../actions/actions';
+import {itemsFetchAllv2, itemDelete} from '../actions/actions';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import {red500} from 'material-ui/styles/colors';
@@ -90,10 +90,6 @@ class PhoneTable extends Component {
         return alert(sha1);
     }
 
-    deleteItem(sha1) {
-        return alert(sha1);
-    }
-
     render() {
         if (this.props.hasErrored) {
             return (<div>
@@ -141,7 +137,7 @@ class PhoneTable extends Component {
                                             <MenuItem primaryText="Edit" rightIcon={<Edit />}
                                                       onTouchTap={() => this.editItem(item.sha1)}/>
                                             <MenuItem primaryText="Delete" rightIcon={<Delete />}
-                                                      onTouchTap={() => this.deleteItem(item.sha1)}/>
+                                                      onTouchTap={() => this.props.itemDelete(item.sha1)}/>
                                         </IconMenu>
                                     </div>
                                 </TableRowColumn>
@@ -156,6 +152,7 @@ class PhoneTable extends Component {
 
 PhoneTable.propTypes = {
     itemsFetchAllv2: PropTypes.func.isRequired,
+    itemDelete: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -171,7 +168,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        itemsFetchAllv2: () => dispatch(itemsFetchAllv2())
+        itemsFetchAllv2: () => dispatch(itemsFetchAllv2()),
+        itemDelete: (hash) => dispatch(itemDelete(hash))
     };
 };
 
