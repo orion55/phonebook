@@ -110,6 +110,7 @@ export function itemsFetchAllv2() {
                     } = response.data.results[i];
 
                     let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
+                    dob = dob.split(" ")[0];
                     items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email, dob});
                 }
 

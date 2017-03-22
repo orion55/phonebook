@@ -13,7 +13,10 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 const styles = {
     avatarBottom: {
         marginBottom: "20px"
-    }
+    },
+    widthTable: {
+        width: '600px'
+    },
 };
 
 function handleTouchTap() {
@@ -43,22 +46,22 @@ class UserInfo extends Component {
                 <div className="wrap">
                     <Avatar src={this.props.currentItem.pictureLarge} size={150} style={styles.avatarBottom}/>
                     <div className="fullName">{this.props.currentItem.fullName}</div>
-                    <Table>
+                    <Table style={styles.widthTable}>
                         <TableBody displayRowCheckbox={false} showRowHover={true}>
                             <TableRow>
-                                <TableRowColumn>Phone</TableRowColumn>
+                                <TableRowColumn><span className="fontDec">Phone</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.phone}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn>Cell</TableRowColumn>
+                                <TableRowColumn><span className="fontDec">Cell</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.cell}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn>Email</TableRowColumn>
+                                <TableRowColumn><span className="fontDec">Email</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.email}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn>Birthday</TableRowColumn>
+                                <TableRowColumn><span className="fontDec">Birthday</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.dob}</TableRowColumn>
                             </TableRow>
                         </TableBody>
