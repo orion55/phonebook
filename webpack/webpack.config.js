@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -66,5 +67,6 @@ module.exports = {
             filename: './index.html',
             favicon: './source/images/phone.png',
         }),
+        new LodashModuleReplacementPlugin(),
     ],
 };

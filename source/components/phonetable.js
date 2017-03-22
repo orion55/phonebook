@@ -23,6 +23,7 @@ import Edit from 'material-ui/svg-icons/image/edit';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Link from 'react-router/lib/Link';
+import _isEmpty from 'lodash/isEmpty';
 
 const styles = {
     textCenterUppercase: {
@@ -79,7 +80,8 @@ class PhoneTable extends Component {
     }
 
     componentDidMount() {
-        this.props.itemsFetchAllv2();
+        if (_isEmpty(this.props.items))
+            this.props.itemsFetchAllv2();
     }
 
     handleTouch() {
