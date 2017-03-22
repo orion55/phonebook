@@ -16,3 +16,14 @@
   float: left;
   line-height: 56px;
 }
+
+.underline {
+  text-decoration: underline;
+  color: #00BCD4;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    color: #008796;
+  }
+}

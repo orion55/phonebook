@@ -10,3 +10,18 @@
 .mainView, .centerText {
   text-align: center;
 }
+
+.wrap {
+  //margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.fullName{
+  color: #00BCD4;
+  font-size: 30px;
+  text-align: center;
+  //text-transform: uppercase;
+}

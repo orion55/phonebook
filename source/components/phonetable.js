@@ -126,12 +126,13 @@ class PhoneTable extends Component {
                                     src={item.pictureThumb}/></TableRowColumn>
                                 <TableRowColumn
                                     style={styles.widthFixed}>
-                                    <Link to={"/user/" + item.sha1}>{item.fullName}</Link>
+                                    <Link to={"/user/" + item.sha1} className="underline">{item.fullName}</Link>
                                 </TableRowColumn>
                                 <TableRowColumn style={styles.widthFixed}>{item.phone}</TableRowColumn>
                                 <TableRowColumn style={styles.widthFixed}>{item.cell}</TableRowColumn>
                                 <TableRowColumn style={styles.widthFixedLast}>
-                                    <div className="cellTableLast">{item.email}</div>
+                                    <div className="cellTableLast"><a
+                                        href={"mailto:" + item.email} className="underline">{item.email}</a></div>
                                     <div className="cellMenu">
                                         <IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                                                   anchorOrigin={{horizontal: 'right', vertical: 'top'}}

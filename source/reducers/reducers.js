@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import AppConstants from '../constants/AppConstants';
+import _isEmpty from 'lodash/isEmpty';
 
 export default combineReducers({
     items,
@@ -39,7 +40,7 @@ function items(state = [], action) {
 function currentItem(state = {}, action) {
     switch (action.type) {
         case AppConstants.ITEM_SET:
-            return (action.currentItem === undefined || action.currentItem.length == 0) ? {} : action.currentItem[0];
+            return _isEmpty(action.currentItem) ? {} : action.currentItem[0];
 
         default:
             return state;

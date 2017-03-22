@@ -69,22 +69,15 @@ export function itemsFetchAll() {
                         phone,
                         cell,
                         email,
-                        picture:{large: pictureLarge, thumbnail: pictureThumb}
+                        picture:{large: pictureLarge, thumbnail: pictureThumb},
+                        dob
                     } = param[i].data.results[0];
 
                     let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
-                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email});
+                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email, dob});
                 }
 
-                items.sort(function (a, b) {
-                    if (a.fullName > b.fullName) {
-                        return 1;
-                    }
-                    if (a.fullName < b.fullName) {
-                        return -1;
-                    }
-                    return 0;
-                });
+                items.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1);
 
                 dispatch(itemsIsLoading(false));
                 dispatch(itemsFetchDataSuccess(items));
@@ -112,22 +105,16 @@ export function itemsFetchAllv2() {
                         phone,
                         cell,
                         email,
-                        picture:{large: pictureLarge, thumbnail: pictureThumb}
+                        picture:{large: pictureLarge, thumbnail: pictureThumb},
+                        dob
                     } = response.data.results[i];
 
                     let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
-                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email});
+                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email, dob});
                 }
 
-                items.sort(function (a, b) {
-                    if (a.fullName > b.fullName) {
-                        return 1;
-                    }
-                    if (a.fullName < b.fullName) {
-                        return -1;
-                    }
-                    return 0;
-                });
+                items.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1);
+
 
                 dispatch(itemsIsLoading(false));
                 dispatch(itemsFetchDataSuccess(items));
