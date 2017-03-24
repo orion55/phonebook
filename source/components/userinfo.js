@@ -8,7 +8,12 @@ import FlatButton from 'material-ui/FlatButton';
 import history from '../router/router';
 import ReturnIcon from 'material-ui/svg-icons/hardware/keyboard-return';
 import Avatar from 'material-ui/Avatar';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
+import './userinfo.scss';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Edit from 'material-ui/svg-icons/image/edit';
+import IconButton from 'material-ui/IconButton';
+import {itemDelete} from '../actions/actions';
 
 const styles = {
     avatarBottom: {
@@ -19,10 +24,6 @@ const styles = {
     },
 };
 
-function handleTouchTap() {
-    history.push('/');
-}
-
 class UserInfo extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +31,11 @@ class UserInfo extends Component {
 
     componentDidMount() {
         this.props.itemSet(this.props.id);
+    }
+
+    DeleteTouch(sha1) {
+        this.props.itemDelete(sha1);
+        history.push('/');
     }
 
     render() {
@@ -41,27 +47,38 @@ class UserInfo extends Component {
         }
         return (
             <div>
-                <FlatButton label="Back to the list" primary={true}
-                            onTouchTap={handleTouchTap} icon={<ReturnIcon />}/>
+                <div className="User-Menu">
+                    <FlatButton label="Back to the list" primary={true}
+                                onTouchTap={()=> history.push('/')} icon={<ReturnIcon />}/>
+                    <div className="User-Editor">
+                        <IconButton tooltip="Edit" tooltipPosition="bottom-center">
+                            <Edit color={'#00BCD4'}/>
+                        </IconButton>
+                        <IconButton tooltip="Delete" tooltipPosition="bottom-center"
+                                    onTouchTap={() => this.DeleteTouch(this.props.currentItem.sha1)}>
+                            <Delete color={'#00BCD4'}/>
+                        </IconButton>
+                    </div>
+                </div>
                 <div className="wrap">
                     <Avatar src={this.props.currentItem.pictureLarge} size={150} style={styles.avatarBottom}/>
-                    <div className="fullName">{this.props.currentItem.fullName}</div>
+                    <div className="User-fullName">{this.props.currentItem.fullName}</div>
                     <Table style={styles.widthTable}>
                         <TableBody displayRowCheckbox={false} showRowHover={true}>
                             <TableRow>
-                                <TableRowColumn><span className="fontDec">Phone</span></TableRowColumn>
+                                <TableRowColumn><span className="User-fontDec">Phone</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.phone}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="fontDec">Cell</span></TableRowColumn>
+                                <TableRowColumn><span className="User-fontDec">Cell</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.cell}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="fontDec">Email</span></TableRowColumn>
+                                <TableRowColumn><span className="User-fontDec">Email</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.email}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="fontDec">Birthday</span></TableRowColumn>
+                                <TableRowColumn><span className="User-fontDec">Birthday</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.dob}</TableRowColumn>
                             </TableRow>
                         </TableBody>
@@ -71,6 +88,13 @@ class UserInfo extends Component {
         )
     }
 }
+
+UserInfo.propTypes = {
+    itemDelete: PropTypes.func.isRequired,
+    itemSet: PropTypes.func.isRequired,
+    currentItem: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => {
     return {
         currentItem: state.currentItem
@@ -79,7 +103,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        itemSet: (hash) => dispatch(itemSet(hash))
+        itemSet: (hash) => dispatch(itemSet(hash)),
+        itemDelete: (hash) => dispatch(itemDelete(hash))
     };
 };
 
