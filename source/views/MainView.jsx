@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PhoneTable from '../components/phonetable'
+import PhoneTable from '../components/phonetable/phonetable'
 
 const MainView = () => {
     return (

@@ -3,16 +3,18 @@ import React, {Component, PropTypes}  from 'react';
 import Dialog from 'material-ui/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import {modalIsLoading} from '../actions/actions';
+import {modalIsLoading} from '../../actions/actions';
+import Avatar from 'material-ui/Avatar';
 
 class InputDialog extends Component {
     render() {
         const actions = [
-            <FlatButton label="Отмена" onTouchTap={(event) => this.props.modalIsLoading(false)}/>,
-            <FlatButton label="Ввести" primary={true} />
+            <FlatButton label="Cancel" onTouchTap={(event) => this.props.modalIsLoading(false)}/>,
+            <FlatButton label="Ok" primary={true}/>
         ];
         return (
-            <Dialog actions={actions} modal={false} open={this.props.isModalShow} title="123">
+            <Dialog actions={actions} modal={false} open={this.props.isModalShow} title={this.props.title}>
+                <Avatar src={this.props.currentItem.pictureLarge} size={150}/>
             </Dialog>
         );
     }

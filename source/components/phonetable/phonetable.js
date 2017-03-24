@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import './phonetable.scss';
 import {connect} from 'react-redux';
-import {itemsFetchAllv2, itemDelete, modalIsLoading, itemSet} from '../actions/actions';
+import {itemsFetchAllv2, itemDelete, modalIsLoading, itemSet, itemCurrentSet} from '../../actions/actions';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import {red500} from 'material-ui/styles/colors';
@@ -24,7 +24,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Link from 'react-router/lib/Link';
 import _isEmpty from 'lodash/isEmpty';
-import InputDialog from './inputdialog';
+import InputDialog from '../inputdialog/inputdialog';
 
 const styles = {
     textCenterUppercase: {
@@ -78,6 +78,10 @@ const styles = {
 class PhoneTable extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            titleModal: ''
+        };
     }
 
     componentDidMount() {
@@ -85,8 +89,16 @@ class PhoneTable extends Component {
             this.props.itemsFetchAllv2();
     }
 
-    editItem(sha1) {
-        return alert(sha1);
+    EditItem(sha1) {
+        this.setState({titleModal: 'Edit Record'});
+        this.props.itemSet(sha1);
+        this.props.modalIsLoading(true);
+    }
+
+    newRecord() {
+        this.setState({titleModal: 'New Record'});
+        this.props.itemCurrentSet({});
+        this.props.modalIsLoading(true);
     }
 
     render() {
@@ -102,13 +114,10 @@ class PhoneTable extends Component {
         }
         return (
             <div>
-                <InputDialog />
+                <InputDialog title={this.state.titleModal}/>
                 <div className="leftText">
                     <FlatButton label="Add new record" primary={true} icon={<PlusIcon />}
-                                onTouchTap={(event) => {
-                                    this.props.itemSet(0);
-                                    this.props.modalIsLoading(true);
-                                }}/>
+                                onTouchTap={() => this.newRecord()}/>
                 </div>
                 <Table style={styles.widthTable}>
                     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -139,7 +148,7 @@ class PhoneTable extends Component {
                                                   anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                                                   targetOrigin={{horizontal: 'right', vertical: 'top'}}>
                                             <MenuItem primaryText="Edit" rightIcon={<Edit />}
-                                                      onTouchTap={() => this.editItem(item.sha1)}/>
+                                                      onTouchTap={() => this.EditItem(item.sha1)}/>
                                             <MenuItem primaryText="Delete" rightIcon={<Delete />}
                                                       onTouchTap={() => this.props.itemDelete(item.sha1)}/>
                                         </IconMenu>
@@ -178,6 +187,7 @@ const mapDispatchToProps = (dispatch) => {
         itemDelete: (hash) => dispatch(itemDelete(hash)),
         modalIsLoading: (bool) => dispatch(modalIsLoading(bool)),
         itemSet: (hash) => dispatch(itemSet(hash)),
+        itemCurrentSet: (item) => dispatch(itemCurrentSet(item))
     };
 };
 

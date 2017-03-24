@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInfo from '../components/userinfo';
+import UserInfo from '../components/userinfo/userinfo';
 
 const SecondView = (props) => {
     return (
