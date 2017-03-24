@@ -14,7 +14,6 @@ import MainView from './views/MainView';
 import SecondView from './views/SecondView';
 import ThirdView from './views/ThirdView';
 
-
 render(
     <Provider store={store}>
         <Router history={history}>

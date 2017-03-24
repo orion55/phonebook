@@ -140,7 +140,18 @@ export function itemCurrentSet(currentItem) {
 
 export function itemSet(hash) {
     return (dispatch, getState) => {
-        const {items} =getState();
-        dispatch(itemCurrentSet(items.filter(item => item.sha1 === hash)));
+        if (hash !== 0) {
+            const {items} =getState();
+            dispatch(itemCurrentSet(items.filter(item => item.sha1 === hash)));
+        } else {
+            dispatch(itemCurrentSet({}));
+        }
+    };
+}
+
+export function modalIsLoading(bool) {
+    return {
+        type: AppConstants.MODAL_IS_SHOW,
+        isModalShow: bool
     };
 }

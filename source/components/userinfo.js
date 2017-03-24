@@ -62,23 +62,23 @@ class UserInfo extends Component {
                 </div>
                 <div className="wrap">
                     <Avatar src={this.props.currentItem.pictureLarge} size={150} style={styles.avatarBottom}/>
-                    <div className="User-fullName">{this.props.currentItem.fullName}</div>
+                    <div className="User-FullName">{this.props.currentItem.fullName}</div>
                     <Table style={styles.widthTable}>
                         <TableBody displayRowCheckbox={false} showRowHover={true}>
                             <TableRow>
-                                <TableRowColumn><span className="User-fontDec">Phone</span></TableRowColumn>
+                                <TableRowColumn><span className="User-FontDec">Phone</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.phone}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="User-fontDec">Cell</span></TableRowColumn>
+                                <TableRowColumn><span className="User-FontDec">Cell</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.cell}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="User-fontDec">Email</span></TableRowColumn>
+                                <TableRowColumn><span className="User-FontDec">Email</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.email}</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn><span className="User-fontDec">Birthday</span></TableRowColumn>
+                                <TableRowColumn><span className="User-FontDec">Birthday</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.dob}</TableRowColumn>
                             </TableRow>
                         </TableBody>

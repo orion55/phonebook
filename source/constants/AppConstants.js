@@ -5,5 +5,6 @@ export default AppConstants({
     ITEMS_IS_LOADING: null,
     ITEMS_FETCH_DATA_SUCCESS: null,
     ITEM_DELETE: null,
-    ITEM_SET: null
+    ITEM_SET: null,
+    MODAL_IS_SHOW: null
 });

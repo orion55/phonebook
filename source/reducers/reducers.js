@@ -10,7 +10,7 @@ export default combineReducers({
     currentItem
 });
 
-function statusApp(state = {hasErrored: false, isLoading: false}, action) {
+function statusApp(state = {hasErrored: false, isLoading: false, isModalShow: false}, action) {
     switch (action.type) {
         case AppConstants.ITEMS_HAS_ERRORED:
             return Object.assign({}, state, {
@@ -19,6 +19,10 @@ function statusApp(state = {hasErrored: false, isLoading: false}, action) {
         case AppConstants.ITEMS_IS_LOADING:
             return Object.assign({}, state, {
                 isLoading: action.isLoading
+            });
+        case AppConstants.MODAL_IS_SHOW:
+            return Object.assign({}, state, {
+                isModalShow: action.isModalShow
             });
 
         default:
