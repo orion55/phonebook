@@ -25,6 +25,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Link from 'react-router/lib/Link';
 import _isEmpty from 'lodash/isEmpty';
 import InputDialog from '../inputdialog/inputdialog';
+import {initialize} from 'redux-form';
 
 const styles = {
     textCenterUppercase: {
@@ -114,7 +115,7 @@ class PhoneTable extends Component {
         }
         return (
             <div>
-                <InputDialog title={this.state.titleModal}/>
+                <InputDialog title={this.state.titleModal} ref="dialogInput"/>
                 <div className="leftText">
                     <FlatButton label="Add new record" primary={true} icon={<PlusIcon />}
                                 onTouchTap={() => this.newRecord()}/>

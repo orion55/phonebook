@@ -29,11 +29,14 @@ class InputDialog extends Component {
                 {/*<Avatar src={this.props.currentItem.pictureLarge} size={150}/>*/}
                 <form name="InputDialog">
                     <div className="dialog__wrap">
-                        <Field name="fullName" component={TextField} hintText="Name" styles={"width: 100%"}/>
-                        <Field name="phone" component={TextField} hintText="Phone"/>
-                        <Field name="cell" component={TextField} hintText="Cell"/>
-                        <Field name="email" component={TextField} hintText="Email"/>
-                        <Field name="dob" component={DatePicker} format={null} hintText="Birthday"/>
+                        <Field name="fullName" component={TextField} floatingLabelText="Name"
+                               className="dialog__widthFull"/>
+                        <Field name="phone" component={TextField} floatingLabelText="Phone"
+                               className="dialog__widthHalf"/>
+                        <Field name="cell" component={TextField} floatingLabelText="Cell"
+                               className="dialog__widthHalf"/>
+                        <Field name="email" component={TextField} floatingLabelText="Email"
+                               className="dialog__widthHalf"/>
                     </div>
                 </form>
             </Dialog>
@@ -43,8 +46,8 @@ class InputDialog extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentItem: state.currentItem,
-        isModalShow: state.statusApp.isModalShow
+        isModalShow: state.statusApp.isModalShow,
+        initialValues:  state.currentItem
     };
 };
 
@@ -55,7 +58,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 InputDialog = reduxForm({
-    form: 'InputDialog'
+    form: 'InputDialog',
+    enableReinitialize: true
 })(InputDialog);
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputDialog);

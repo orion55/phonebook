@@ -85,10 +85,6 @@ class UserInfo extends Component {
                                 <TableRowColumn><span className="User-FontDec">Email</span></TableRowColumn>
                                 <TableRowColumn>{this.props.currentItem.email}</TableRowColumn>
                             </TableRow>
-                            <TableRow>
-                                <TableRowColumn><span className="User-FontDec">Birthday</span></TableRowColumn>
-                                <TableRowColumn>{this.props.currentItem.dob}</TableRowColumn>
-                            </TableRow>
                         </TableBody>
                     </Table>
                 </div>

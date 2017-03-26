@@ -105,13 +105,11 @@ export function itemsFetchAllv2() {
                         phone,
                         cell,
                         email,
-                        picture:{large: pictureLarge, thumbnail: pictureThumb},
-                        dob
+                        picture:{large: pictureLarge, thumbnail: pictureThumb}
                     } = response.data.results[i];
 
                     let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
-                    dob = dob.split(" ")[0];
-                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email, dob});
+                    items.push({sha1, fullName, pictureThumb, pictureLarge, phone, cell, email});
                 }
 
                 items.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1);
