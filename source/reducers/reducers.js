@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import AppConstants from '../constants/AppConstants';
 import _isEmpty from 'lodash/isEmpty';
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 
 export default combineReducers({
     items,
@@ -38,7 +38,13 @@ function items(state = [], action) {
             return action.items;
         case AppConstants.ITEM_DELETE:
             return state.filter(item => item.sha1 !== action.hash);
-
+        case AppConstants.ITEM_UPDATE:
+            return state.map(item => {
+                if (item.sha1 === action.item.sha1){
+                    item = action.item;
+                }
+                return item;
+            });
         default:
             return state;
     }

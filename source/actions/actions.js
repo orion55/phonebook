@@ -2,7 +2,7 @@ import AppConstants from '../constants/AppConstants';
 import axios from 'axios';
 
 const userUrl = 'https://randomuser.me/api/';
-const userUrlResult = 'https://randomuser.me/api/?results=';
+const userUrlResult = 'https://randomuser.me/api/?nat=us&results=';
 
 export function itemsHasErrored(bool) {
     return {
@@ -147,5 +147,19 @@ export function modalIsLoading(bool) {
     return {
         type: AppConstants.MODAL_IS_SHOW,
         isModalShow: bool
+    };
+}
+
+export function itemUpdate(item) {
+    return {
+        type: AppConstants.ITEM_UPDATE,
+        item
+    };
+}
+
+export function itemInsert(item) {
+    return {
+        type: AppConstants.ITEM_INSERT,
+        item
     };
 }

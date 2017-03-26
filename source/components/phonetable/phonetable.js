@@ -132,7 +132,7 @@ class PhoneTable extends Component {
                     </TableHeader>
                     <TableBody displayRowCheckbox={false} showRowHover={true}>
                         {this.props.items.map((item, index) => (
-                            <TableRow key={item.sha1}>
+                            <TableRow key={index}>
                                 <TableRowColumn style={styles.textLeft}> <Avatar
                                     src={item.pictureThumb}/></TableRowColumn>
                                 <TableRowColumn

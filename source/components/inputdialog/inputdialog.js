@@ -3,11 +3,24 @@ import React, {Component, PropTypes}  from 'react';
 import Dialog from 'material-ui/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import {modalIsLoading} from '../../actions/actions';
-import Avatar from 'material-ui/Avatar';
+import {modalIsLoading, itemUpdate, itemInsert, itemSet} from '../../actions/actions';
 import {reduxForm, Field} from 'redux-form';
-import {TextField, DatePicker} from 'redux-form-material-ui';
+import {TextField} from 'redux-form-material-ui';
 import './inputdialog.scss';
+
+const validate = values => {
+    const errors = {};
+    const requiredFields = ['fullName', 'phone', 'cell', 'email'];
+    requiredFields.forEach(field => {
+        if (!values[field]) {
+            errors[field] = 'Required'
+        }
+    });
+    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address'
+    }
+    return errors
+};
 
 class InputDialog extends Component {
     constructor(props) {
@@ -15,8 +28,14 @@ class InputDialog extends Component {
     };
 
     handleSubmit() {
-        this.props.modalIsLoading(false);
-        console.log('Ok');
+        if (this.props.valid) {
+            if (this.props.formInput.values.hasOwnProperty('sha1')) {
+                console.log(this.props.formInput.values.sha1);
+                this.props.itemUpdate(this.props.formInput.values);
+                this.props.itemSet(this.props.formInput.values.sha1);
+            }
+            this.props.modalIsLoading(false);
+        }
     };
 
     render() {
@@ -26,7 +45,6 @@ class InputDialog extends Component {
         ];
         return (
             <Dialog actions={actions} modal={false} open={this.props.isModalShow} title={this.props.title}>
-                {/*<Avatar src={this.props.currentItem.pictureLarge} size={150}/>*/}
                 <form name="InputDialog">
                     <div className="dialog__wrap">
                         <Field name="fullName" component={TextField} floatingLabelText="Name"
@@ -47,19 +65,24 @@ class InputDialog extends Component {
 const mapStateToProps = (state) => {
     return {
         isModalShow: state.statusApp.isModalShow,
-        initialValues:  state.currentItem
+        initialValues: state.currentItem,
+        formInput: state.form.InputDialog
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        modalIsLoading: (bool) => dispatch(modalIsLoading(bool))
+        modalIsLoading: (bool) => dispatch(modalIsLoading(bool)),
+        itemUpdate: (item) => dispatch(itemUpdate(item)),
+        itemInsert: (item) => dispatch(itemInsert(item)),
+        itemSet: (hash) => dispatch(itemSet(hash)),
     };
 };
 
 InputDialog = reduxForm({
     form: 'InputDialog',
-    enableReinitialize: true
+    enableReinitialize: true,
+    validate
 })(InputDialog);
 
 
