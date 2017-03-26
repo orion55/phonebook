@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+let LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -12,7 +12,6 @@ module.exports = {
     },
     devServer: {
         port: 8080,
-        // colors: true,
         contentBase: 'docs/',
         historyApiFallback: true,
     },
@@ -22,7 +21,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.(jsx|js)?$/,
                 loaders: ['babel-loader'],
                 exclude: /node_modules/,
             },
@@ -33,6 +32,14 @@ module.exports = {
                     'css-loader?importLoaders=1',
                     'postcss-loader',
                     'sass-loader'
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader?importLoaders=1',
+                    'postcss-loader'
                 ]
             },
             {test: /\.(png|gif|jpg)(\?.*$|$)/, loader: 'url-loader?limit=100000&name=images/[hash].[ext]'},

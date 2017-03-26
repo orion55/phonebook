@@ -2,12 +2,14 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import AppConstants from '../constants/AppConstants';
 import _isEmpty from 'lodash/isEmpty';
+import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
     items,
     statusApp,
     routing: routerReducer,
-    currentItem
+    currentItem,
+    form: formReducer
 });
 
 function statusApp(state = {hasErrored: false, isLoading: false, isModalShow: false}, action) {
