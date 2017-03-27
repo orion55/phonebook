@@ -7,7 +7,8 @@ import {modalIsLoading, itemUpdate, itemInsert, itemSet, dataFetchV2} from '../.
 import {reduxForm, Field} from 'redux-form';
 import {TextField} from 'redux-form-material-ui';
 import './inputdialog.scss';
-import ActionAutorenew from 'material-ui/SvgIcon'
+import Autorenew from 'material-ui/svg-icons/action/autorenew';
+import ErrorIcon from 'material-ui/svg-icons/alert/error';
 
 const validate = values => {
     const errors = {};
@@ -47,7 +48,7 @@ class InputDialog extends Component {
         let actions = [];
         if (this.props.title === 'New Record') {
             actions.push(<FlatButton label="Generate" secondary={true} onTouchTap={(event) => this.handleGenerate()}
-                                     icon="{<ActionAutorenew/>}"/>);
+                                     icon={<Autorenew />}/>);
         }
         actions.push(<FlatButton label="Cancel" onTouchTap={(event) => this.props.modalIsLoading(false)}/>);
         actions.push(<FlatButton label="Ok" primary={true} onTouchTap={(event) => this.handleSubmit()}/>);
