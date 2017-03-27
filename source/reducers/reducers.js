@@ -12,7 +12,13 @@ export default combineReducers({
     form: formReducer
 });
 
-function statusApp(state = {hasErrored: false, isLoading: false, isModalShow: false}, action) {
+function statusApp(state = {
+    hasErrored: false,
+    isLoading: false,
+    isModalShow: false,
+    isDataLoading: false,
+    hasDataErrored: false
+}, action) {
     switch (action.type) {
         case AppConstants.ITEMS_HAS_ERRORED:
             return Object.assign({}, state, {
@@ -26,7 +32,14 @@ function statusApp(state = {hasErrored: false, isLoading: false, isModalShow: fa
             return Object.assign({}, state, {
                 isModalShow: action.isModalShow
             });
-
+        case AppConstants.DATA_IS_LOADING:
+            return Object.assign({}, state, {
+                isDataLoading: action.isDataLoading
+            });
+        case AppConstants.DATA_HAS_ERRORED:
+            return Object.assign({}, state, {
+                hasDataErrored: action.hasDataErrored
+            });
         default:
             return state;
     }
@@ -40,7 +53,7 @@ function items(state = [], action) {
             return state.filter(item => item.sha1 !== action.hash);
         case AppConstants.ITEM_UPDATE:
             return state.map(item => {
-                if (item.sha1 === action.item.sha1){
+                if (item.sha1 === action.item.sha1) {
                     item = action.item;
                 }
                 return item;
@@ -51,6 +64,8 @@ function items(state = [], action) {
 }
 function currentItem(state = {}, action) {
     switch (action.type) {
+        case AppConstants.DATA_FETCH_SUCCESS:
+            return action.item;
         case AppConstants.ITEM_SET:
             return _isEmpty(action.currentItem) ? {} : action.currentItem[0];
 

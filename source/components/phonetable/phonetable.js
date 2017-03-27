@@ -115,7 +115,7 @@ class PhoneTable extends Component {
         }
         return (
             <div>
-                <InputDialog title={this.state.titleModal} ref="dialogInput"/>
+                <InputDialog title={this.state.titleModal}/>
                 <div className="leftText">
                     <FlatButton label="Add new record" primary={true} icon={<PlusIcon />}
                                 onTouchTap={() => this.newRecord()}/>

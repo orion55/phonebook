@@ -1,7 +1,7 @@
 import AppConstants from '../constants/AppConstants';
 import axios from 'axios';
 
-const userUrl = 'https://randomuser.me/api/';
+const userUrl = 'https://randomuser.me/api/?nat=us';
 const userUrlResult = 'https://randomuser.me/api/?nat=us&results=';
 
 export function itemsHasErrored(bool) {
@@ -161,5 +161,55 @@ export function itemInsert(item) {
     return {
         type: AppConstants.ITEM_INSERT,
         item
+    };
+}
+
+export function dataFetchV2() {
+    return (dispatch) => {
+
+        dispatch(dataIsLoading(true));
+
+        axios.get(userUrl)
+            .then((response) => {
+                const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+                // console.log(response);
+                let {
+                    name: {first: first, last: last},
+                    login: {sha1: sha1},
+                    phone,
+                    cell,
+                    email,
+                    picture:{large: pictureLarge, thumbnail: pictureThumb}
+                } = response.data.results[0];
+
+                let fullName = capitalizeFirstLetter(last) + ' ' + capitalizeFirstLetter(first);
+
+                dispatch(dataIsLoading(false));
+
+                let item = {sha1, fullName, pictureThumb, pictureLarge, phone, cell, email};
+                dispatch(dataFetchSuccess(item));
+            })
+            .catch(() => dispatch(dataHasErrored(true)));
+    };
+}
+
+export function dataHasErrored(bool) {
+    return {
+        type: AppConstants.DATA_HAS_ERRORED,
+        hasDataErrored: bool
+    };
+}
+
+export function dataIsLoading(bool) {
+    return {
+        type: AppConstants.DATA_IS_LOADING,
+        isDataLoading: bool
+    };
+}
+
+export function dataFetchSuccess(item) {
+    return {
+        type: AppConstants.DATA_FETCH_SUCCESS,
+        item: item
     };
 }

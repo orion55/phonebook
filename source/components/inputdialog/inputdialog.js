@@ -3,10 +3,11 @@ import React, {Component, PropTypes}  from 'react';
 import Dialog from 'material-ui/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import {modalIsLoading, itemUpdate, itemInsert, itemSet} from '../../actions/actions';
+import {modalIsLoading, itemUpdate, itemInsert, itemSet, dataFetchV2} from '../../actions/actions';
 import {reduxForm, Field} from 'redux-form';
 import {TextField} from 'redux-form-material-ui';
 import './inputdialog.scss';
+import ActionAutorenew from 'material-ui/SvgIcon'
 
 const validate = values => {
     const errors = {};
@@ -38,11 +39,19 @@ class InputDialog extends Component {
         }
     };
 
+    handleGenerate() {
+        this.props.dataFetchV2();
+    };
+
     render() {
-        const actions = [
-            <FlatButton label="Cancel" onTouchTap={(event) => this.props.modalIsLoading(false)}/>,
-            <FlatButton label="Ok" primary={true} onTouchTap={(event) => this.handleSubmit()}/>
-        ];
+        let actions = [];
+        if (this.props.title === 'New Record') {
+            actions.push(<FlatButton label="Generate" secondary={true} onTouchTap={(event) => this.handleGenerate()}
+                                     icon="{<ActionAutorenew/>}"/>);
+        }
+        actions.push(<FlatButton label="Cancel" onTouchTap={(event) => this.props.modalIsLoading(false)}/>);
+        actions.push(<FlatButton label="Ok" primary={true} onTouchTap={(event) => this.handleSubmit()}/>);
+
         return (
             <Dialog actions={actions} modal={false} open={this.props.isModalShow} title={this.props.title}>
                 <form name="InputDialog">
@@ -66,7 +75,9 @@ const mapStateToProps = (state) => {
     return {
         isModalShow: state.statusApp.isModalShow,
         initialValues: state.currentItem,
-        formInput: state.form.InputDialog
+        formInput: state.form.InputDialog,
+        isDataLoading: state.statusApp.isDataLoading,
+        hasDataErrored: state.statusApp.hasDataErrored
     };
 };
 
@@ -76,6 +87,7 @@ const mapDispatchToProps = (dispatch) => {
         itemUpdate: (item) => dispatch(itemUpdate(item)),
         itemInsert: (item) => dispatch(itemInsert(item)),
         itemSet: (hash) => dispatch(itemSet(hash)),
+        dataFetchV2: () => dispatch(dataFetchV2())
     };
 };
 
