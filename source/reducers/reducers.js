@@ -58,6 +58,10 @@ function items(state = [], action) {
                 }
                 return item;
             });
+        case AppConstants.ITEM_INSERT:
+            let newState = [...state, action.item];
+            newState.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1);
+            return newState;
         default:
             return state;
     }

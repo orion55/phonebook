@@ -167,12 +167,12 @@ export function itemInsert(item) {
 export function dataFetchV2() {
     return (dispatch) => {
 
+        dispatch(dataHasErrored(false));
         dispatch(dataIsLoading(true));
 
         axios.get(userUrl)
             .then((response) => {
                 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-                // console.log(response);
                 let {
                     name: {first: first, last: last},
                     login: {sha1: sha1},
