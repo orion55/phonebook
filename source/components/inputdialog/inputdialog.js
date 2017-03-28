@@ -97,6 +97,18 @@ class InputDialog extends Component {
     }
 }
 
+InputDialog.propTypes = {
+    modalIsLoading: PropTypes.func.isRequired,
+    itemUpdate: PropTypes.func.isRequired,
+    itemInsert: PropTypes.func.isRequired,
+    itemSet: PropTypes.func.isRequired,
+    dataFetchV2: PropTypes.func.isRequired,
+    isModalShow: PropTypes.bool.isRequired,
+    initialValues: PropTypes.object.isRequired,
+    isDataLoading: PropTypes.bool.isRequired,
+    hasDataErrored: PropTypes.bool.isRequired
+};
+
 const mapStateToProps = (state) => {
     return {
         isModalShow: state.statusApp.isModalShow,
